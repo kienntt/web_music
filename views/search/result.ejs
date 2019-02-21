@@ -1,0 +1,57 @@
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<h1>day la view tra ve ket qua search</h1>
+<hr />
+<div id="may_cai_button">
+  <button id="search_tiep" class="btn btn-success">
+    tìm kiếm trong các kết quả này
+  </button>
+  <button id="backpage" class="btn btn-danger">
+    trở về trang trước
+  </button>
+  <button id="home" class="btn btn-info">
+      <a href="/">
+            trang chủ
+      </a>
+  </button>
+</div>
+
+<div id="history">
+    có thể là hiện lịch sử... là các nút và bấm vào là hiện kết quả
+</div>
+
+<%for(let song of data){%>
+<p><%=song._source.song_name%></p>
+<hr />
+<%}%>
+
+<style>
+  #may_cai_button {
+    position: fixed;
+    top: 20px;
+    right: 10%;
+  }
+  #may_cai_button button {
+      outline: none;
+  }
+  #home a {
+      color: white;
+  }
+  #home a, #home a:hover, #home a:link {
+      text-decoration: none;
+  }
+  #history {
+    position: fixed;
+    top: 200px;
+    right: 10%;
+    max-width: 200px;
+    width: 200px;
+    height: 200px;
+    background-color: aqua;
+  }
+</style>

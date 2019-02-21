@@ -30,7 +30,9 @@
 /*********************************
 2. Body and some general stuff
 *********************************/
-
+#bt_search {
+	outline: none;
+}
 *
 {
 	margin: 0;
