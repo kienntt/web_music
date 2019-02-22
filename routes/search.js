@@ -4,6 +4,60 @@ var elasticsearch = require("elasticsearch");
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 /* GET users listing. */
+router.get('/byresult/:id', function (req, res, next) {
+    
+    var old_main_keyword = req.cookies['main_keyword'];
+    var old_exclude_keyword = req.cookies['exclude_keyword'];
+    let include = [];
+    let exclude = [];
+    include = include.concat(old_main_keyword);
+    exclude = exclude.concat(old_exclude_keyword);
+    include = [...new Set(include)];
+    exclude = [...new Set(exclude)];
+    /* ket noi elasticsearch */
+    var client = new elasticsearch.Client({
+        host: "http://192.168.1.210:9200",
+        log: "trace"
+    });
+
+    var query = '{"from" : 0, "size" : 10,"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
+    query = JSON.parse(query);
+    for (let i = 0; i < include.length; i++) {
+        query['query']['bool']['should']['bool']['must'].push({ "match_phrase_prefix": { "lyrics": include[i] } });
+    }
+    for (let i = 0; i < exclude.length; i++) {
+        query['query']['bool']['should']['bool']['must_not'].push({ "match_phrase": { "lyrics": exclude[i] } });
+    }
+    let show_include = include.filter(item => item.trim() !== "");
+    let show_exclude = exclude.filter(item => item.trim() !== "");
+    //set from current page 
+    var size = 2;
+    var current = req.params.id;
+    query['from'] = (current-1)*size;
+    query['size'] = size;
+    client.search(
+        {
+            index: "songtest",
+            body: query
+        },
+        function (error, response, status) {
+            if (error) {
+                console.log("search error: " + error);
+                res.send("Error!");
+            } else {
+                let data = [];
+                let total = response.hits.total;
+                let numPage = Math.ceil(total / size);
+                response.hits.hits.forEach(function (hit) {
+                    data.push(hit);
+                });
+                res.cookie('main_keyword', include, { expires: new Date(Date.now() + 900000), httpOnly: true })
+                res.cookie('exclude_keyword', exclude, { expires: new Date(Date.now() + 900000), httpOnly: true })
+                res.render("search/result", { data: data ,show_include, show_exclude, pages: numPage , current: current});
+            }
+        }
+    );
+});
 router.post('/byresult', function (req, res, next) {
     var old_main_keyword = req.cookies['main_keyword'];
     var old_exclude_keyword = req.cookies['exclude_keyword'];
@@ -19,7 +73,7 @@ router.post('/byresult', function (req, res, next) {
         log: "trace"
     });
 
-    var query = '{"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
+    var query = '{"from" : 0, "size" : 10,"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
     query = JSON.parse(query);
     for (let i = 0; i < include.length; i++) {
         if(include[i].trim() !== "") {
@@ -34,7 +88,8 @@ router.post('/byresult', function (req, res, next) {
     let show_include = include.filter(item => item.trim() !== "");
     let show_exclude = exclude.filter(item => item.trim() !== "");
 
-    show_include
+    var size = 2;
+    query['size'] = size;
 
     client.search(
         {
@@ -47,12 +102,14 @@ router.post('/byresult', function (req, res, next) {
                 res.send("Error!");
             } else {
                 let data = [];
+                let total = response.hits.total;
+                let numPage = Math.ceil(total / 2);
                 response.hits.hits.forEach(function (hit) {
                     data.push(hit);
                 });
                 res.cookie('main_keyword', include, { expires: new Date(Date.now() + 900000), httpOnly: true })
                 res.cookie('exclude_keyword', exclude, { expires: new Date(Date.now() + 900000), httpOnly: true })
-                res.render("search/result", { data: data , show_include, show_exclude});
+                res.render("search/result", { data: data , show_include, show_exclude, pages:numPage, current: 1});
             }
         }
     );
