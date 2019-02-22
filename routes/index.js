@@ -31,7 +31,7 @@ router.post("/search", urlencodedParser, function(req, res) {
       query['query']['bool']['should']['bool']['must'].push({ "match_phrase_prefix": { "lyrics": include[i] } });
     }
     for (let i = 0; i < exclude.length; i++) {
-      query['query']['bool']['should']['bool']['must_not'].push({ "match_phrase": { "lyrics": exclude[i] } });
+      query['query']['bool']['should']['bool']['must_not'].push({ "match_phrase_prefix": { "lyrics": exclude[i] } });
     }
     
     client.search(
