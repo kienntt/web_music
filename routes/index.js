@@ -8,13 +8,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
-
-router.post("/", function(req, res) {
-  var data = JSON.stringify(req.body);
-
-  console.log(data);
+router.post("/", function(req, res, next) {
+    res.clearCookie();
 });
-
 router.post("/search", urlencodedParser, function(req, res) {
   if (!req.body) {
     //noi dung request trong
@@ -52,7 +48,8 @@ router.post("/search", urlencodedParser, function(req, res) {
           response.hits.hits.forEach(function(hit) {
             data.push(hit);
           });
-          res.cookie('keyword',JSON.stringify(req.body),{ expires: new Date(Date.now() + 900000), httpOnly: true })
+          res.cookie('main_keyword',include,{ expires: new Date(Date.now() + 900000), httpOnly: true })
+          res.cookie('exclude_keyword',exclude,{ expires: new Date(Date.now() + 900000), httpOnly: true })
           res.render("search/result", { data: data });
         }
       }

@@ -8,9 +8,18 @@
 <h1>day la view tra ve ket qua search</h1>
 <hr />
 <div id="may_cai_button">
-  <button id="search_tiep" class="btn btn-success">
-    tìm kiếm trong các kết quả này
-  </button>
+    <form action="/search/byresult" method="POST" class="tickets_form">
+      <div class="d-flex flex-md-row flex-column align-items-start justify-content-md-between justify-content-start">
+        
+        <div class="tickets_form_inputs d-flex flex-row align-items-start justify-content-between form_search">																													
+          <input type="text" name="main_keyword" class="tickets_form_input" placeholder="Từ khóa cần tìm" required="required">														
+          <input type="text" name="exclude_keyword" class="tickets_form_input" placeholder="Từ khóa loại bỏ">
+        </div>
+        <button type="submit" id="bt_search" class="tickets_form_button button"><span>Tìm kiếm tiếp trong các kết quả này</span></button>
+        
+      </div>
+    </form>
+  
   <button id="backpage" class="btn btn-danger">
     trở về trang trước
   </button>
