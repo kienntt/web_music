@@ -719,7 +719,7 @@ section
 .home_container
 {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
