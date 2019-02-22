@@ -20,8 +20,8 @@ router.post("/search", urlencodedParser, function(req, res) {
     //noi dung request trong
     return res.redirect("/");
   } else {
-    let include = req.body.keyword.split(";");
-    let exclude = req.body.not_keyword.split(";");
+    let include = req.body.main_keyword.split(";");
+    let exclude = req.body.exclude_keyword.split(";");
 
     /* ket noi elasticsearch */
     var client = new elasticsearch.Client({
@@ -52,6 +52,7 @@ router.post("/search", urlencodedParser, function(req, res) {
           response.hits.hits.forEach(function(hit) {
             data.push(hit);
           });
+          res.cookie('keyword',JSON.stringify(req.body),{ expires: new Date(Date.now() + 900000), httpOnly: true })
           res.render("search/result", { data: data });
         }
       }
