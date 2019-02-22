@@ -119,6 +119,15 @@
               <div class="col">
                 <div class="home_content text-center">
                   <div class="home_title">Tìm trong kết quả này</div>
+                  <div class="current-keyword">
+                    <div class="current-include">
+                      Các từ khóa đang tìm: <span><%=show_include%> </span>
+                      <div class="show-keyword-box"><a href="#popupkeyword"><i class="fa fa-eye"></i></a></div>
+                    </div>
+                    <div class="current-exclude">
+                      Các từ khóa đang loại bỏ: <span><%=show_exclude%></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,7 +142,12 @@
           <div class="row">
             <div class="col">
               <div class="search_form_container">
-                <form action="/search/byresult" method="POST" class="search_form" id="search_form">
+                <form
+                  action="/search/byresult"
+                  method="POST"
+                  class="search_form"
+                  id="search_form"
+                >
                   <div
                     class="d-flex flex-md-row flex-column align-items-center justify-content-between"
                   >
@@ -185,16 +199,13 @@
                           </div>
                           <div class="artist_text">
                             <p>
-                              <%=song._source.lyrics%>
-                              <% 
-                              let temp_author = [];
-                              for(let i = 0; i < song._source.author.length; i++) {
-                                temp_author.push(song._source.author[i].name);
-                              }
-                              let temp_singer = [];
-                              for(let i = 0; i < song._source.singers.length; i++) {
-                                temp_singer.push(song._source.singers[i].name);
-                              }
+                              <%=song._source.lyrics%> <% let temp_author = [];
+                              for(let i = 0; i < song._source.author.length;
+                              i++) {
+                              temp_author.push(song._source.author[i].name); }
+                              let temp_singer = []; for(let i = 0; i <
+                              song._source.singers.length; i++) {
+                              temp_singer.push(song._source.singers[i].name); }
                               %>
                             </p>
                           </div>
@@ -203,29 +214,34 @@
                             <div>
                               <a>
                                 <span class="author_or_singer">Tác giả:</span>
-                                <%for(let i = 0; i < song._source.author.length; i++){%>
-                                  <%if(i == song._source.author.length  - 1){%>
-                                    <span><%=song._source.author[i].name%></span>    
-                                  <%}else {%>
-                                    <span><%=song._source.author[i].name%>, </span>
-                                  <%}%>
-                                <%}%>
+                                <%for(let i = 0; i < song._source.author.length;
+                                i++){%> <%if(i == song._source.author.length -
+                                1){%>
+                                <span><%=song._source.author[i].name%></span>
+                                <%}else {%>
+                                <span><%=song._source.author[i].name%>, </span>
+                                <%}%> <%}%>
                               </a>
                             </div>
                             <div>
                               <a>
                                 <span class="author_or_singer">Ca sĩ: </span>
-                                <%for(let i = 0; i < song._source.singers.length; i++){%>
-                                  <%if(i == song._source.singers.length  - 1){%>
-                                    <span><%=song._source.singers[i].name%></span>    
-                                  <%}else {%>
-                                    <span><%=song._source.singers[i].name%>, </span>
-                                  <%}%>
-                                <%}%>
+                                <%for(let i = 0; i <
+                                song._source.singers.length; i++){%> <%if(i ==
+                                song._source.singers.length - 1){%>
+                                <span><%=song._source.singers[i].name%></span>
+                                <%}else {%>
+                                <span><%=song._source.singers[i].name%>, </span>
+                                <%}%> <%}%>
                               </a>
                             </div>
-                            <button class="btn btn-info" onclick="showLyric(`<%=song._id%>`);">Xem lời bài hát</button>
                           </div>
+                          <button
+                            class="show-lyric btn btn-info"
+                            onclick="showLyric(`<%=song._id%>`);"
+                          >
+                            Xem lời bài hát
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -242,31 +258,86 @@
         <span class="modal-close" onclick="closeLyric();">&times;</span>
         <div class="modal-content">
           <h2 class="modal-song-name"></h2>
-          <div class="modal-author-singer">
-            
-          </div><br>
-          Lời bài hát:<br>
-          <div class="modal-lyric">
-
-          </div>
+          <div class="modal-author-singer"></div>
+          <br />
+          Lời bài hát:<br />
+          <div class="modal-lyric"></div>
         </div>
         <div class="modal-caption">
           Thông tin bài hát
         </div>
       </div>
+
+      <div id="popupkeyword" class="overlay">
+        <div class="popup">
+          <a class="close" href="#">&times;</a>
+          <div class="content row">
+            Các từ khóa được dùng cho kết quả này
+            <ul class="col-sm-6" style="color:darkgreen">
+              <%for(let temp_include of show_include){%>
+                <li>
+                  <%=temp_include%>
+                </li>
+              <%}%>
+              <!-- disc -->
+              </ul>
+            <ul class="col-sm-6" style="color:darkred">
+              <%for(let temp_exclude of show_exclude){%>
+                <li>
+                    <%=temp_exclude%>
+                  </li>
+              <%}%>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
-    function showLyric(songId) {
-      var modal = document.getElementById('lyricModal');
-      modal.style.display = 'block';
-      $('#lyricModal .modal-song-name').text($('#' + songId).find('.artist_name h1').text());
-      $('#lyricModal .modal-author-singer').html($('#' + songId).find('.author_n_singer').html());
-      $('#lyricModal .modal-lyric').text($('#' + songId).find('.artist_text p').text());
-    }
-    function closeLyric() {
-      var modal = document.getElementById('lyricModal');
-      modal.style.display = 'none';
-    }
+      document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+          if ($(".current-include span").text().length >= 40) {
+            $(".current-include span").text(
+              $(".current-include span")
+                .text()
+                .substr(0, 40) + "..."
+            );
+            $(".current-keyword i").show();
+          }
+          if ($(".current-exclude span").text().length >= 40) {
+            $(".current-exclude span").text(
+              $(".current-exclude span")
+                .text()
+                .substr(0, 40) + "..."
+            );
+            $(".current-keyword i").show();
+          }
+        },
+        false
+      );
+      function showLyric(songId) {
+        var modal = document.getElementById("lyricModal");
+        modal.style.display = "block";
+        $("#lyricModal .modal-song-name").text(
+          $("#" + songId)
+            .find(".artist_name h1")
+            .text()
+        );
+        $("#lyricModal .modal-author-singer").html(
+          $("#" + songId)
+            .find(".author_n_singer")
+            .html()
+        );
+        $("#lyricModal .modal-lyric").text(
+          $("#" + songId)
+            .find(".artist_text p")
+            .text()
+        );
+      }
+      function closeLyric() {
+        var modal = document.getElementById("lyricModal");
+        modal.style.display = "none";
+      }
     </script>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/styles/bootstrap-4.1.2/popper.js"></script>

@@ -55,9 +55,9 @@
 .author_n_singer {
 	position: relative;
 }
-.author_n_singer button {
+.show-lyric {
 	position: absolute;
-	bottom: 1px;
+	bottom: 5px;
 	right: 0;
 	border-radius: 15px;
 	padding: 2px 6px;
@@ -171,6 +171,12 @@
     right: 5%;
   }
 }
+@media only screen and (max-width: 768px) { 
+	.home_container .home_title {
+		font-size: 50px;
+	}
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -772,6 +778,7 @@ section {
   height: 449px;
 }
 .home_container {
+  margin-top: -70px;
   position: absolute;
   left: 0;
   top: 57.2%;
@@ -783,7 +790,158 @@ section {
   color: #ffffff;
   line-height: 1.2;
 }
+.current-keyword {
+	text-align: left;
+    padding-left: 220px;
+	font-size: 16px;
+	margin-top: 15px;
+	width: 100%;
+	margin-right: 200px;
+}
+.current-keyword span {
+	max-height: 22px;
+	overflow: hidden;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+}
+.current-keyword .current-exclude {
+	margin-top: 20px;
+}
+.current-keyword .current-include span {
+	color:white;
+	padding: 2px 4px;
+	border-radius: 10px;
+	background-color: green;
+	font-size: 18px;
+}
+.current-keyword .current-exclude span {
+	color: white;
+	padding: 2px 4px;
+	border-radius: 10px;
+	background-color: darkred;
+	font-size: 18px;
+}
+.current-keyword i {
+  display: none;
+  cursor: pointer;
+  color: #FFFFFF;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+@-webkit-keyframes glowing {
+  0% { color: rgb(250, 32, 32);  }
+  50% { color: rgb(252, 86, 86);  }
+  100% { color: rgb(250, 32, 32);  }
+}
 
+@-moz-keyframes glowing {
+  0% { color: rgb(250, 32, 32);  }
+  50% { color: rgb(252, 86, 86);  }
+  100% { color: rgb(250, 32, 32);  }
+}
+
+@-o-keyframes glowing {
+  0% { color: rgb(250, 32, 32);  }
+  50% { color: rgb(252, 86, 86);  }
+  100% { color: rgb(250, 32, 32);  }
+}
+
+@keyframes glowing {
+  0% { color: rgb(250, 32, 32);  }
+  50% { color: rgb(252, 86, 86);  }
+  100% { color: rgb(250, 32, 32);  }
+}
+
+
+
+
+.show-keyword-box {
+  display: inline;
+  font-size: 20px;
+}
+
+#popupkeyword .button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid #06D85F;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+#popupkeyword .button:hover {
+  background: #06D85F;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+#popupkeyword .popup {
+  margin: 70px auto;
+  margin-top: 200px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+#popupkeyword .popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+#popupkeyword .popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  z-index: 2;
+}
+#popupkeyword .popup .close:hover {
+  color: #06D85F;
+}
+#popupkeyword .popup .content {
+  max-height: 30%;
+  margin: 20px;
+  overflow: auto;
+}
+
+#popupkeyword ul {
+  list-style: disc;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
 /*********************************
 6. Search
 *********************************/
