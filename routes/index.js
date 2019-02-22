@@ -5,13 +5,14 @@ var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
+
+router.get("/", function (req, res, next) {
+  res.clearCookie();
   res.render("index", { title: "Express" });
+
 });
-router.post("/", function(req, res, next) {
-    res.clearCookie();
-});
-router.post("/search", urlencodedParser, function(req, res) {
+
+router.post("/search", urlencodedParser, function (req, res) {
   if (!req.body) {
     //noi dung request trong
     return res.redirect("/");
@@ -25,7 +26,7 @@ router.post("/search", urlencodedParser, function(req, res) {
       log: "trace"
     });
 
-    var query = '{"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
+    var query = '{"from" : 0, "size" : 10,"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
     query = JSON.parse(query);
     for (let i = 0; i < include.length; i++) {
       query['query']['bool']['should']['bool']['must'].push({ "match_phrase_prefix": { "lyrics": include[i] } });
@@ -33,24 +34,28 @@ router.post("/search", urlencodedParser, function(req, res) {
     for (let i = 0; i < exclude.length; i++) {
       query['query']['bool']['should']['bool']['must_not'].push({ "match_phrase_prefix": { "lyrics": exclude[i] } });
     }
-    
+    query['from'] = 0;
+    console.log(JSON.stringify(query));
     client.search(
       {
         index: "songtest",
         body: query
       },
-      function(error, response, status) {
+      function (error, response, status) {
         if (error) {
           console.log("search error: " + error);
           res.send("Error!");
         } else {
           let data = [];
-          response.hits.hits.forEach(function(hit) {
+          let total = response.hits.total;
+          let numPage = Math.ceil(total / 2);
+          console.log("page " + numPage);
+          response.hits.hits.forEach(function (hit) {
             data.push(hit);
           });
-          res.cookie('main_keyword',include,{ expires: new Date(Date.now() + 900000), httpOnly: true })
-          res.cookie('exclude_keyword',exclude,{ expires: new Date(Date.now() + 900000), httpOnly: true })
-          res.render("search/result", { data: data });
+          res.cookie('main_keyword', include, { expires: new Date(Date.now() + 900000), httpOnly: true })
+          res.cookie('exclude_keyword', exclude, { expires: new Date(Date.now() + 900000), httpOnly: true })
+          res.render("search/result", { data: data, pages: numPage, current: 1 });
         }
       }
     );
