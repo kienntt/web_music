@@ -20,9 +20,8 @@ router.post("/search", urlencodedParser, function(req, res) {
     //noi dung request trong
     return res.redirect("/");
   } else {
-    let include = req.body.keyword;
-    let exclude = req.body.not_keyword;
-    
+    let include = req.body.keyword.split(";");
+    let exclude = req.body.not_keyword.split(";");
 
     /* ket noi elasticsearch */
     var client = new elasticsearch.Client({
@@ -30,29 +29,19 @@ router.post("/search", urlencodedParser, function(req, res) {
       log: "trace"
     });
 
+    var query = '{"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
+    query = JSON.parse(query);
+    for (let i = 0; i < include.length; i++) {
+      query['query']['bool']['should']['bool']['must'].push({ "match_phrase_prefix": { "lyrics": include[i] } });
+    }
+    for (let i = 0; i < exclude.length; i++) {
+      query['query']['bool']['should']['bool']['must_not'].push({ "match_phrase": { "lyrics": exclude[i] } });
+    }
+    
     client.search(
       {
         index: "songtest",
-        body: {
-          query: {
-            bool: {
-              should: {
-                bool: {
-                  must: {
-                    match_phrase_prefix: {
-                      "lyrics": include
-                    }
-                  },
-                  must_not: {
-                    match_phrase: {
-                      "lyrics": exclude
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+        body: query
       },
       function(error, response, status) {
         if (error) {

@@ -33,6 +33,10 @@
 #bt_search {
 	outline: none;
 }
+::-webkit-scrollbar {
+	width: 0px;
+}
+
 *
 {
 	margin: 0;
