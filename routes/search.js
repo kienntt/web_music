@@ -81,10 +81,15 @@ router.get('/byresult/:id', function (req, res, next) {
 router.post('/byresult', function (req, res, next) {
     var old_main_keyword = req.cookies['main_keyword'];
     var old_exclude_keyword = req.cookies['exclude_keyword'];
-    let include = req.body.main_keyword.split(";");
-    let exclude = req.body.exclude_keyword.split(";");
-    include = include.concat(old_main_keyword);
-    exclude = exclude.concat(old_exclude_keyword);
+    let include=[];
+    let exclude=[];
+    include = req.body.main_keyword.split(";");
+    exclude = req.body.exclude_keyword.split(";");
+    if(old_main_keyword!=undefined)
+    {
+        include = include.concat(old_main_keyword);
+        exclude = exclude.concat(old_exclude_keyword);
+    }   
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */

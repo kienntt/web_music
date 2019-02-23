@@ -7,7 +7,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 /* GET home page. */
 
 router.get("/", function(req, res, next) {
-  res.clearCookie();
+  res.clearCookie("exclude_keyword");
+  res.clearCookie("main_keyword");
   res.render("index", { title: "Express" });
 });
 
@@ -16,8 +17,10 @@ router.post("/search", urlencodedParser, function(req, res) {
     //noi dung request trong
     return res.redirect("/");
   } else {
-    let include = req.body.main_keyword.split(";");
-    let exclude = req.body.exclude_keyword.split(";");
+    let include = [];
+    let exclude = [];
+    include = req.body.main_keyword.split(";");
+    exclude = req.body.exclude_keyword.split(";");
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */
@@ -87,14 +90,16 @@ router.post("/search", urlencodedParser, function(req, res) {
           responsessss.hits.hits.forEach(function(hit) {
             total_song.push(hit);
           });
-          res.cookie("main_keyword", include, {
-            expires: new Date(Date.now() + 900000),
-            httpOnly: true
-          });
-          res.cookie("exclude_keyword", exclude, {
-            expires: new Date(Date.now() + 900000),
-            httpOnly: true
-          });
+          if(total!=0){
+            res.cookie("main_keyword", include, {
+              expires: new Date(Date.now() + 900000),
+              httpOnly: true
+            });
+            res.cookie("exclude_keyword", exclude, {
+              expires: new Date(Date.now() + 900000),
+              httpOnly: true
+            });
+          }         
           res.render("search/result", {
             data: data,
             show_include: show_include,
