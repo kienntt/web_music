@@ -12,6 +12,23 @@ router.get('/byresult/:id', function (req, res, next) {
     let exclude = [];
     include = include.concat(old_main_keyword);
     exclude = exclude.concat(old_exclude_keyword);
+    old_main_keyword.push(include);
+    old_exclude_keyword.push(exclude);
+
+    include = req.body.main_keyword.split(";");
+    exclude = req.body.exclude_keyword.split(";");
+
+    for(let temp of old_main_keyword) {
+        for(let sub_temp of temp) {
+            include = include.concat(sub_temp);
+        }
+    }
+    for(let temp of old_exclude_keyword) {
+        for(let sub_temp of temp) {
+            exclude = exclude.concat(sub_temp);
+        }
+    }
+    /* loai bo cac phan tu trung lap*/
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */
@@ -37,7 +54,7 @@ router.get('/byresult/:id', function (req, res, next) {
     query['size'] = size;   
     var data = [];
     var total_song = [];
-
+    var check_first_query = false;
     var total = 0;
     var numPage = 0;
     client.search(
@@ -55,36 +72,62 @@ router.get('/byresult/:id', function (req, res, next) {
                 response.hits.hits.forEach(function (hit) {
                     data.push(hit);
                 });
+                check_first_query = true;
             }
         }
     );delete query['from']; delete query['size'];
-    client.search(
-        {
-            index: "songtest",
-            body: query
-        },
-        function (error, response, status) {
-            if (error) {
-                console.log("search error: " + error);
-                res.send("Error!");
-            } else {
-                response.hits.hits.forEach(function (hit) {
-                    total_song.push(hit);
-                });
-                res.cookie('main_keyword', include, { expires: new Date(Date.now() + 900000), httpOnly: true })
-                res.cookie('exclude_keyword', exclude, { expires: new Date(Date.now() + 900000), httpOnly: true })
-                res.render("search/result", { data: data ,show_include, show_exclude, pages: numPage , current: current, total:total, total_song:total_song});
+    if(check_first_query) {
+        client.search(
+            {
+                index: "songtest",
+                body: query
+            },
+            function (error, response, status) {
+                if (error) {
+                    console.log("search error: " + error);
+                    res.send("Error!");
+                } else {
+                    response.hits.hits.forEach(function (hit) {
+                        total_song.push(hit);
+                    });
+                    res.cookie('main_keyword', include, { expires: new Date(Date.now() + 900000), httpOnly: true })
+                    res.cookie('exclude_keyword', exclude, { expires: new Date(Date.now() + 900000), httpOnly: true })
+                    res.render("search/result", { data: data ,show_include, show_exclude, pages: numPage , current: current, total:total, total_song:total_song});
+                }
             }
-        }
-    );
+        );
+    }
+    
 });
+
+
+
+
+
 router.post('/byresult', function (req, res, next) {
     var old_main_keyword = req.cookies['main_keyword'];
     var old_exclude_keyword = req.cookies['exclude_keyword'];
     let include = req.body.main_keyword.split(";");
     let exclude = req.body.exclude_keyword.split(";");
-    include = include.concat(old_main_keyword);
-    exclude = exclude.concat(old_exclude_keyword);
+    
+    old_main_keyword.push(include);
+    old_exclude_keyword.push(exclude);
+
+    include = req.body.main_keyword.split(";");
+    exclude = req.body.exclude_keyword.split(";");
+
+    for(let temp of old_main_keyword) {
+        for(let sub_temp of temp) {
+            include = include.concat(sub_temp);
+        }
+    }
+    for(let temp of old_exclude_keyword) {
+        for(let sub_temp of temp) {
+            exclude = exclude.concat(sub_temp);
+        }
+    }
+    
+    /* loai bo cac duplicated element */
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */
@@ -115,6 +158,7 @@ router.post('/byresult', function (req, res, next) {
     var total = 0;
     var numPage = 0;
     var total_song = [];
+    var check_first_query = false;
     client.search(
         {
             index: "songtest",
@@ -130,29 +174,32 @@ router.post('/byresult', function (req, res, next) {
                 response.hits.hits.forEach(function (hit) {
                     data.push(hit);
                 });
+                check_first_query = true;
             }
         }
     );
     delete query['from']; delete query['size'];
-    client.search(
-        {
-            index: "songtest",
-            body: query
-        },
-        function (error, response, status) {
-            if (error) {
-                console.log("search error: " + error);
-                res.send("Error!");
-            } else {
-                response.hits.hits.forEach(function (hit) {
-                    total_song.push(hit);
-                });
-                res.cookie('main_keyword', include, { expires: new Date(Date.now() + 900000), httpOnly: true })
-                res.cookie('exclude_keyword', exclude, { expires: new Date(Date.now() + 900000), httpOnly: true })
-                res.render("search/result", { data: data, show_include: show_include, show_exclude: show_exclude, pages: numPage, current: 1, total: total, total_song:total_song});
+    if(check_first_query) {
+        client.search(
+            {
+                index: "songtest",
+                body: query
+            },
+            function (error, response, status) {
+                if (error) {
+                    console.log("search error: " + error);
+                    res.send("Error!");
+                } else {
+                    response.hits.hits.forEach(function (hit) {
+                        total_song.push(hit);
+                    });
+                    res.cookie('main_keyword', old_main_keyword, { expires: new Date(Date.now() + 900000), httpOnly: true })
+                    res.cookie('exclude_keyword', old_exclude_keyword, { expires: new Date(Date.now() + 900000), httpOnly: true })
+                    res.render("search/result", { data: data, show_include: show_include, show_exclude: show_exclude, pages: numPage, current: 1, total: total, total_song:total_song});
+                }
             }
-        }
-    );
+        );
+    }
 }
 
 );

@@ -18,6 +18,11 @@ router.post("/search", urlencodedParser, function(req, res) {
   } else {
     let include = req.body.main_keyword.split(";");
     let exclude = req.body.exclude_keyword.split(";");
+    let array_include_cookie = [];
+    let array_exclude_cookie = [];
+    array_exclude_cookie.push(exclude);
+    array_include_cookie.push(include);
+    
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */
@@ -49,7 +54,7 @@ router.post("/search", urlencodedParser, function(req, res) {
 
     var data = [];
     var total_song = [];
-
+    var check_first_query = false;
     var total = 0;
     var numPage = 0;
     let show_include = include.filter(item => item.trim() !== "");
@@ -69,47 +74,46 @@ router.post("/search", urlencodedParser, function(req, res) {
           response.hits.hits.forEach(function(hit) {
             data.push(hit);
           });
-          
+          check_first_query = true;
         }
       }
     );
     delete query['from']; delete query['size'];
-    client.search(
-      {
-        index: "songtest",
-        body: query
-      },
-      function(error, responsessss, status) {
-        if (error) {
-          console.log("search error: " + error);
-          res.send("Error!");res.send('total')
-        } else {
-          responsessss.hits.hits.forEach(function(hit) {
-            total_song.push(hit);
-          });
-          res.cookie("main_keyword", include, {
-            expires: new Date(Date.now() + 900000),
-            httpOnly: true
-          });
-          res.cookie("exclude_keyword", exclude, {
-            expires: new Date(Date.now() + 900000),
-            httpOnly: true
-          });
-          res.render("search/result", {
-            data: data,
-            show_include: show_include,
-            show_exclude: show_exclude,
-            pages: numPage,
-            current: 1,
-            total: total,
-            total_song:total_song
-          });
+    if(check_first_query) {
+      client.search(
+        {
+          index: "songtest",
+          body: query
+        },
+        function(error, responsessss, status) {
+          if (error) {
+            console.log("search error: " + error);
+            res.send("Error!");res.send('total')
+          } else {
+            responsessss.hits.hits.forEach(function(hit) {
+              total_song.push(hit);
+            });
+            res.cookie("main_keyword", array_include_cookie, {
+              expires: new Date(Date.now() + 900000),
+              httpOnly: true
+            });
+            res.cookie("exclude_keyword", array_exclude_cookie, {
+              expires: new Date(Date.now() + 900000),
+              httpOnly: true
+            });
+            res.render("search/result", {
+              data: data,
+              show_include: show_include,
+              show_exclude: show_exclude,
+              pages: numPage,
+              current: 1,
+              total: total,
+              total_song:total_song
+            });
+          }
         }
-      }
-    );
-
-    
-    
+      );
+    }
   }
 });
 
