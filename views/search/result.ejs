@@ -66,12 +66,15 @@
 
                 <!-- Main Navigation -->
                 <nav class="main_nav">
-                  <ul
-                    class="d-flex flex-row align-items-center justify-content-start"
-                  >
-                    <li><a href="/search/byresult/3">Trang chủ</a></li>
+                  <ul class="d-flex flex-row align-items-center justify-content-start large">
+                    <li><a href="/">Trang chủ</a></li>
                     <!-- <li><a href="#">Lịch sử</a></li> -->
                     <li><a href="#">Trở về trang trước</a></li>
+                  </ul>
+                  <ul class="d-flex flex-row align-items-center justify-content-start tiny">
+                    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+                    <!-- <li><a href="#">Lịch sử</a></li> -->
+                    <li><a href="#"><i class="fa fa-arrow-left"></i> Trở lại</a></li>
                   </ul>
                 </nav>
               </div>
@@ -120,13 +123,8 @@
                 <div class="home_content text-center">
                   <div class="home_title">Tìm trong kết quả này</div>
                   <div class="current-keyword">
-                    <div class="current-include">
-                      Các từ khóa đang tìm: <span><%=show_include%> </span>
-                      <div class="show-keyword-box"><a href="#popupkeyword"><i class="fa fa-eye"></i></a></div>
-                    </div>
-                    <div class="current-exclude">
-                      Các từ khóa đang loại bỏ: <span><%=show_exclude%></span>
-                    </div>
+                    Có <%=total%> kết quả cho tìm kiếm với các từ khóa sau
+                    <div class="show-keyword-box"><a href="#popupkeyword">chi tiết<i class="fa fa-info-circle"></i></a></div>
                   </div>
                 </div>
               </div>
@@ -271,9 +269,16 @@
       <div id="popupkeyword" class="overlay">
         <div class="popup">
           <a class="close" href="#">&times;</a>
+          <div class="row">
+              <span class="col-sm-6 info-include">
+                  Các từ khóa được tìm kiếm
+                </span>
+                <span class="col-sm-6 info-exclude">
+                  Các từ được loại bỏ
+                </span>
+          </div>
           <div class="content row">
-            Các từ khóa được dùng cho kết quả này
-            <ul class="col-sm-6" style="color:darkgreen">
+            <ul class="col-xs-6" style="color:darkgreen">
               <%for(let temp_include of show_include){%>
                 <li>
                   <%=temp_include%>
@@ -281,11 +286,23 @@
               <%}%>
               <!-- disc -->
               </ul>
-            <ul class="col-sm-6" style="color:darkred">
+            <ul class="col-xs-6" style="color:darkred">
               <%for(let temp_exclude of show_exclude){%>
                 <li>
                     <%=temp_exclude%>
                   </li>
+              <%}%>
+            </ul>
+          </div>
+          <div class="info-songs">
+            <div>
+              Danh sách các bài hát
+            </div>
+            <ul>
+              <%for(let temp_song of total_song){%>
+              <li>
+                <%=temp_song._source.song_name%>
+              </li>
               <%}%>
             </ul>
           </div>
@@ -368,6 +385,11 @@
       document.addEventListener(
         "DOMContentLoaded",
         function() {
+          if($(document).width() <= 414) {
+            $(document).scrollTop(150);
+          }else {
+            $(document).scrollTop(100);
+          }
           if ($(".current-include span").text().length >= 40) {
             $(".current-include span").text(
               $(".current-include span")
@@ -400,11 +422,9 @@
             .find(".author_n_singer")
             .html()
         );
-        $("#lyricModal .modal-lyric").text(
-          $("#" + songId)
-            .find(".artist_text p")
-            .text()
-        );
+        let temp_lyric  =$("#" + songId).find(".artist_text p").text();
+        $("#lyricModal .modal-lyric").html(temp_lyric);
+
       }
       function closeLyric() {
         var modal = document.getElementById("lyricModal");

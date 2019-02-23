@@ -490,7 +490,7 @@ section {
 .header_content {
   width: calc(100% + 30px);
   left: -20px;
-  height: 134px;
+  height: 75px;
   -webkit-transition: all 400ms ease;
   -moz-transition: all 400ms ease;
   -ms-transition: all 400ms ease;
@@ -542,6 +542,9 @@ section {
   -ms-transform: translateY(4px);
   -o-transform: translateY(4px);
   transform: translateY(4px);
+}
+.main_nav .tiny {
+  display: none !important;
 }
 .main_nav {
   -webkit-transform: translateY(5px);
@@ -792,76 +795,33 @@ section {
 }
 .current-keyword {
 	text-align: left;
-    padding-left: 220px;
-	font-size: 16px;
+  padding-left: 220px;
+	font-size: 18px;
 	margin-top: 15px;
 	width: 100%;
 	margin-right: 200px;
 }
-.current-keyword span {
-	max-height: 22px;
-	overflow: hidden;
-	word-wrap: break-word;
-	text-overflow: ellipsis;
-}
-.current-keyword .current-exclude {
-	margin-top: 20px;
-}
-.current-keyword .current-include span {
-	color:white;
-	padding: 2px 4px;
-	border-radius: 10px;
-	background-color: green;
-	font-size: 18px;
-}
-.current-keyword .current-exclude span {
-	color: white;
-	padding: 2px 4px;
-	border-radius: 10px;
-	background-color: darkred;
-	font-size: 18px;
-}
+
+
 .current-keyword i {
-  display: none;
   cursor: pointer;
-  color: #FFFFFF;
-  -webkit-animation: glowing 1500ms infinite;
-  -moz-animation: glowing 1500ms infinite;
-  -o-animation: glowing 1500ms infinite;
-  animation: glowing 1500ms infinite;
+  color: lightgreen;
 }
-@-webkit-keyframes glowing {
-  0% { color: rgb(250, 32, 32);  }
-  50% { color: rgb(252, 86, 86);  }
-  100% { color: rgb(250, 32, 32);  }
-}
-
-@-moz-keyframes glowing {
-  0% { color: rgb(250, 32, 32);  }
-  50% { color: rgb(252, 86, 86);  }
-  100% { color: rgb(250, 32, 32);  }
-}
-
-@-o-keyframes glowing {
-  0% { color: rgb(250, 32, 32);  }
-  50% { color: rgb(252, 86, 86);  }
-  100% { color: rgb(250, 32, 32);  }
-}
-
-@keyframes glowing {
-  0% { color: rgb(250, 32, 32);  }
-  50% { color: rgb(252, 86, 86);  }
-  100% { color: rgb(250, 32, 32);  }
-}
-
-
-
 
 .show-keyword-box {
   display: inline;
   font-size: 20px;
+  
 }
-
+.show-keyword-box a {
+  color: lightgreen;
+}
+.show-songs-box {
+  cursor: pointer;
+}
+.show-songs-box a {
+  color: blue;
+}
 #popupkeyword .button {
   font-size: 1em;
   padding: 10px;
@@ -875,7 +835,23 @@ section {
 #popupkeyword .button:hover {
   background: #06D85F;
 }
+#popupkeyword .content::-webkit-scrollbar, #popupkeyword .info-songs ul::-webkit-scrollbar {
+  width: 2px;
+}
+/* Track */
+#popupkeyword .content::-webkit-scrollbar-track, #popupkeyword .info-songs ul::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
+/* Handle */
+#popupkeyword .content::-webkit-scrollbar-thumb, #popupkeyword .info-songs ul::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+/* Handle on hover */
+#popupkeyword .content::-webkit-scrollbar-thumb:hover, #popupkeyword .info-songs ul::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -895,7 +871,7 @@ section {
 
 #popupkeyword .popup {
   margin: 70px auto;
-  margin-top: 200px;
+  margin-top: 140px;
   padding: 20px;
   background: #fff;
   border-radius: 5px;
@@ -911,8 +887,8 @@ section {
 }
 #popupkeyword .popup .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 10px;
+  right: 20px;
   transition: all 200ms;
   font-size: 30px;
   font-weight: bold;
@@ -924,7 +900,7 @@ section {
   color: #06D85F;
 }
 #popupkeyword .popup .content {
-  max-height: 30%;
+  max-height: 100px;
   margin: 20px;
   overflow: auto;
 }
@@ -933,7 +909,16 @@ section {
   list-style: disc;
   margin-top: 20px;
 }
-
+.col-xs-6 {
+  width: 50%;
+  padding-left: 20px;;
+}
+.info-songs ul {
+  margin: 20px;
+  padding-left: 20px;
+  max-height: 100px;
+  overflow-y: scroll;
+}
 @media screen and (max-width: 700px){
   .box{
     width: 70%;
@@ -942,12 +927,63 @@ section {
     width: 70%;
   }
 }
+@media screen and (max-width: 414px){ 
+  #popupkeyword .popup {
+    width: 95%;
+  }
+  .info-include {
+    color: green;
+  }
+  .info-exclude {
+    color: darkred;
+  }
+  .home_title {
+    display: none;
+  }
+  .search {
+    margin-top: -180px;
+    margin-bottom: 70px;
+  }
+  .artist_image {
+    display: none;
+  }
+  .artist_col, .artists_container {
+    margin-top: 0 !important;
+  }
+  .artists {
+    padding-top: 10px !important;
+  }
+  .current-keyword {
+    z-index: 1;
+    margin-top: 360px;
+    padding: 0 !important;
+  }
+  .main_nav {
+    display: block !important;
+    position: absolute;
+    right: 0;
+  }
+  .main_nav .tiny {
+    display: block !important;
+  }
+  .main_nav .large {
+    display: none !important;
+  }
+  #lyricModal .modal-content {
+    max-height: 90%;
+  }
+  #lyricModal {
+    top: 10%;
+    height: 90%;
+  }
+}
 /*********************************
 6. Search
 *********************************/
 
 .search {
   background: #ffffff;
+  margin-top: -50px;
 }
 .search_form_container {
   padding-left: 119px;
@@ -1058,7 +1094,6 @@ section {
 }
 .artist_image {
   width: calc(100% + 99px);
-  left: -99px;
   padding-right: 66px;
 }
 .artist_content {
