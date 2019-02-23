@@ -123,7 +123,7 @@
                 <div class="home_content text-center">
                   <div class="home_title">Tìm trong kết quả này</div>
                   <div class="current-keyword">
-                    Có <%=data.length%> kết quả cho tìm kiếm với các từ khóa sau
+                    Có <%=total%> kết quả cho tìm kiếm với các từ khóa sau
                     <div class="show-keyword-box"><a href="#popupkeyword">chi tiết<i class="fa fa-info-circle"></i></a></div>
                   </div>
                 </div>
@@ -299,7 +299,7 @@
               Danh sách các bài hát
             </div>
             <ul>
-              <%for(let temp_song of data){%>
+              <%for(let temp_song of total_song){%>
               <li>
                 <%=temp_song._source.song_name%>
               </li>

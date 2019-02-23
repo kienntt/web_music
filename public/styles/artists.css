@@ -887,8 +887,8 @@ section {
 }
 #popupkeyword .popup .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 10px;
+  right: 20px;
   transition: all 200ms;
   font-size: 30px;
   font-weight: bold;
@@ -911,9 +911,11 @@ section {
 }
 .col-xs-6 {
   width: 50%;
+  padding-left: 20px;;
 }
 .info-songs ul {
   margin: 20px;
+  padding-left: 20px;
   max-height: 100px;
   overflow-y: scroll;
 }
@@ -1092,7 +1094,6 @@ section {
 }
 .artist_image {
   width: calc(100% + 99px);
-  left: -99px;
   padding-right: 66px;
 }
 .artist_content {
