@@ -814,7 +814,9 @@ section {
   
 }
 .show-keyword-box a {
-  color: lightgreen;
+  color: lightgreen !important;
+
+  cursor: pointer;
 }
 .show-songs-box {
   cursor: pointer;
@@ -864,10 +866,7 @@ section {
   visibility: hidden;
   opacity: 0;
 }
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
+
 
 #popupkeyword .popup {
   margin: 70px auto;

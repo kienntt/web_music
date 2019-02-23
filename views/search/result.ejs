@@ -69,12 +69,12 @@
                   <ul class="d-flex flex-row align-items-center justify-content-start large">
                     <li><a href="/">Trang chủ</a></li>
                     <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <!-- <li><a href="#">Trở về trang trước</a></li> -->
+                    <li><a href="#" onclick="goBack();">Trở về trang trước</a></li>
                   </ul>
                   <ul class="d-flex flex-row align-items-center justify-content-start tiny">
                     <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
                     <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <!-- <li><a href="#"><i class="fa fa-arrow-left"></i> Trở lại</a></li> -->
+                    <li><a href="#" onclick="goBack();"><i class="fa fa-arrow-left"></i> Trở lại</a></li>
                   </ul>
                 </nav>
               </div>
@@ -124,7 +124,7 @@
                   <div class="home_title">Tìm trong kết quả này</div>
                   <div class="current-keyword">
                     Có <%=total%> kết quả cho tìm kiếm với các từ khóa sau
-                    <div class="show-keyword-box"><a href="#popupkeyword">chi tiết<i class="fa fa-info-circle"></i></a></div>
+                    <div class="show-keyword-box"><a onclick="popupkeyword();">chi tiết<i class="fa fa-info-circle"></i></a></div>
                   </div>
                 </div>
               </div>
@@ -268,7 +268,7 @@
 
       <div id="popupkeyword" class="overlay">
         <div class="popup">
-          <a class="close" href="#">&times;</a>
+          <a class="close" onclick="closePopupKeyword();">&times;</a>
           <div class="row">
               <span class="col-sm-6 info-include">
                   Các từ khóa được tìm kiếm
@@ -429,6 +429,15 @@
       function closeLyric() {
         var modal = document.getElementById("lyricModal");
         modal.style.display = "none";
+      }
+      function goBack() {
+        window.history.back();
+      }
+      function popupkeyword() {
+        $('#popupkeyword').css({'visibility': 'visible',  'opacity': 1});
+      }
+      function closePopupKeyword() {
+        $('#popupkeyword').css({'visibility': 'hidden',  'opacity': 0});
       }
     </script>
     <script src="/js/jquery-3.3.1.min.js"></script>
