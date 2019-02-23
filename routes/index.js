@@ -7,7 +7,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 /* GET home page. */
 
 router.get("/", function(req, res, next) {
-  res.clearCookie();
+  res.clearCookie("exclude_keyword");
+  res.clearCookie("main_keyword");
   res.render("index", { title: "Express" });
 });
 
@@ -93,14 +94,16 @@ router.post("/search", urlencodedParser, function(req, res) {
             responsessss.hits.hits.forEach(function(hit) {
               total_song.push(hit);
             });
-            res.cookie("main_keyword", array_include_cookie, {
-              expires: new Date(Date.now() + 900000),
-              httpOnly: true
-            });
-            res.cookie("exclude_keyword", array_exclude_cookie, {
-              expires: new Date(Date.now() + 900000),
-              httpOnly: true
-            });
+            if(total!=0){ 
+              res.cookie("main_keyword", array_include_cookie, {
+                expires: new Date(Date.now() + 900000),
+                httpOnly: true
+              });
+              res.cookie("exclude_keyword", array_exclude_cookie, {
+                expires: new Date(Date.now() + 900000),
+                httpOnly: true
+              });
+            }
             res.render("search/result", {
               data: data,
               show_include: show_include,

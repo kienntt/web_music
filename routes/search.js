@@ -115,17 +115,21 @@ router.post('/byresult', function (req, res, next) {
 
     include = req.body.main_keyword.split(";");
     exclude = req.body.exclude_keyword.split(";");
-
-    for(let temp of old_main_keyword) {
-        for(let sub_temp of temp) {
-            include = include.concat(sub_temp);
+    if(old_main_keyword!=undefined) {
+        for(let temp of old_main_keyword) {
+            for(let sub_temp of temp) {
+                include = include.concat(sub_temp);
+            }
         }
     }
-    for(let temp of old_exclude_keyword) {
-        for(let sub_temp of temp) {
-            exclude = exclude.concat(sub_temp);
+    if(old_exclude_keyword!=undefined) { 
+        for(let temp of old_exclude_keyword) {
+            for(let sub_temp of temp) {
+                exclude = exclude.concat(sub_temp);
+            }
         }
     }
+    
     
     /* loai bo cac duplicated element */
     include = [...new Set(include)];

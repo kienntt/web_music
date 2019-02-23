@@ -52,7 +52,7 @@
                 <!-- Logo -->
                 <div class="logo">
                   <a
-                    href="#"
+                    href="/"
                     class="d-flex flex-row align-items-end justify-content-start"
                   >
                     <span
@@ -309,41 +309,78 @@
         </div>
       </div>
     </div>
-    <ul class="pagination">
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-      </ul>
+    
       <% if (pages > 0) { %>
-        <ul class="pagination text-center">
+        <ul class="pagination text-center" style="align-items: center;justify-content: center;margin: 40px;">
             <% if (current == 1) { %>
-                <li class="disabled"><a>First</a></li>
+                <li class="disabled page-item"><a class="page-link">First</a></li>
             <% } else { %>
-                <li><a href="/search/byresult/1">First</a></li>
+                <li class="page-item"><a class="page-link" href="/search/byresult/1">First</a></li>
             <% } %>
             <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
             <% if (i !== 1) { %>
-                <li class="disabled"><a>...</a></li>
+                <li class="disabled page-item"><a>...</a></li>
             <% } %>
             <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
                 <% if (i == current) { %>
-                    <li class="active"><a><%= i %></a></li>
+                    <li class="active page-item"><a class="page-link"><%= i %></a></li>
                 <% } else { %>
-                    <li><a href="/search/byresult/<%= i %>"><%= i %></a></li>
+                    <li class="page-item"><a class="page-link" href="/search/byresult/<%= i %>"><%= i %></a></li>
                 <% } %>
                 <% if (i == Number(current) + 4 && i < pages) { %>
-                    <li class="disabled"><a>...</a></li>
+                    <li class="disabled page-item"><a>...</a></li>
                 <% } %>
             <% } %>
             <% if (current == pages) { %>
-                <li class="disabled"><a>Last</a></li>
+                <li class="disabled page-item"><a class="page-link">Last</a></li>
             <% } else { %>
-                <li><a href="/search/byresult/<%= pages %>">Last</a></li>
+                <li class="page-item"><a class="page-link" href="/search/byresult/<%= pages %>">Last</a></li>
             <% } %>
         </ul>
     <% } %>
+    <footer class="footer">
+      <div class="background_image" style="background-image:url(images/footer.jpg)"></div>
+      <div class="footer_content">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center">
+  
+              <!-- Logo -->
+              <div class="logo">
+                <a href="#" class="d-flex flex-row align-items-end justify-content-start">
+                  <span class="logo_bars d-flex flex-row align-items-end justify-content-between"><span></span><span></span><span></span><span></span><span></span></span>
+                  <span class="logo_text">music</span>
+                </a>
+              </div>
+  
+              <!-- Footer Social -->
+              <div class="footer_social">
+                <ul class="d-flex flex-row align-items-center justify-content-center">
+                  <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer_bar">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="copyright text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://smcc.vn" target="_blank">InfoRe</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+    </footer>
     <script>
       document.addEventListener(
         "DOMContentLoaded",
