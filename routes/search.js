@@ -84,8 +84,8 @@ router.get("/byresult/back", function (req, res, next) {
     )
   });
   promise.then(function (data) {
-    delete query["from"];
-    delete query["size"];
+    query["from"] = 0;
+    query["size"] = 10000;
     client.search(
       {
         index: "songtest",
@@ -202,8 +202,8 @@ router.get("/byresult/:id", function (req, res, next) {
     );
   });
   promise.then(function (data) {
-    delete query["from"];
-    delete query["size"];
+    query["from"] = 0;
+    query["size"] = 10000;
 
     client.search(
       {

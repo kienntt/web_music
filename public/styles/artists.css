@@ -28,6 +28,17 @@
 /*********************************
 2. Body and some general stuff
 *********************************/
+/* .pagination {
+  float: right;
+}
+.pagination li a{
+  border: 0;
+  padding: 8px 12px !important;
+  border-radius: 50%;
+  color: white;
+  font: 400;
+  background-color: #aca6a6;
+} */
 ::-webkit-scrollbar {
   width: 10px;
 }

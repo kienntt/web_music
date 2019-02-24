@@ -84,8 +84,8 @@ router.post("/search", urlencodedParser, function (req, res) {
     });
 
     promise.then(function (data) {
-      delete query["from"];
-      delete query["size"];
+      query["from"] = 0;
+      query["size"] = 10000;
 
       client.search(
         {
