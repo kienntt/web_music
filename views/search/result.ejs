@@ -69,7 +69,7 @@
                   <ul class="d-flex flex-row align-items-center justify-content-start large">
                     <li><a href="/">Trang chủ</a></li>
                     <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <!-- <li><a href="#" onclick="goBack();">Trở về trang trước</a></li> -->
+                    <li><a href="/search/byresult/back">Trở về trang trước</a></li>
                   </ul>
                   <ul class="d-flex flex-row align-items-center justify-content-start tiny">
                     <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
@@ -388,9 +388,6 @@
       function closeLyric() {
         var modal = document.getElementById("lyricModal");
         modal.style.display = "none";
-      }
-      function goBack() {
-        window.history.back();
       }
       function popupkeyword() {
         $('#popupkeyword').css({'visibility': 'visible',  'opacity': 1});
