@@ -296,11 +296,13 @@
           </div>
           <div class="info-songs">
             <div>
-              Danh sách các bài hát tìm được
+              Các bài hát tìm được <input class="check_all_song" type="checkbox" onclick="check_all_song(event);">
+              <button class="btn btn-danger no_permission">Không cấp phép</button>
             </div>
             <ul>
               <%for(let temp_song of total_song){%>
               <li>
+                <input type="checkbox" class="check_one_song check_one_song_<%=temp_song._id%>" onclick="check_one_song(event);">
                 <%=temp_song._source.song_name%>
               </li>
               <%}%>
@@ -395,6 +397,37 @@
       }
       function closePopupKeyword() {
         $('#popupkeyword').css({'visibility': 'hidden',  'opacity': 0});
+      }
+      function check_all_song() {
+        if(jQuery(event.target).is(":checked")){
+          $('.check_all_song').prop('checked', true);
+          $('.check_one_song').prop('checked', true);
+          $('.no_permission').show();
+        }else {
+          $('.check_all_song').prop('checked', false);
+          $('.check_one_song').prop('checked', false);
+          $('.no_permission').hide();
+        }
+      }
+      function check_one_song(event) {
+        var classList = event.target.classList;
+        if(jQuery(event.target).is(":checked")){
+          $('.' + classList[1]).prop('checked', true);
+        }else {
+          $('.' + classList[1]).prop('checked', false);
+        }
+        let count = false;
+        $('.check_one_song').each(function() {
+          if($(this).is(':checked')) {
+            count = true;
+            return;
+          }
+        });
+        if(count) {
+          $('.no_permission').show();
+        }else {
+          $('.no_permission').hide();
+        }
       }
     </script>
     <script src="/js/jquery-3.3.1.min.js"></script>
