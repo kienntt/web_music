@@ -234,6 +234,7 @@
                               </a>
                             </div>
                           </div>
+                          <button id="btn-permission-<%=song._id%>" class="btn btn-success btn-permission" onclick="delete_permission(event)">Xóa cấp phép</button>
                           <button
                             class="show-lyric btn btn-info"
                             onclick="showLyric(`<%=song._id%>`);"
@@ -296,14 +297,18 @@
           </div>
           <div class="info-songs">
             <div>
-              Các bài hát tìm được <input class="check_all_song" type="checkbox" onclick="check_all_song(event);">
-              <button class="btn btn-danger no_permission">Không cấp phép</button>
+              Các bài hát tìm được <input id="check_all_song_1" class="check_all_song" type="checkbox" onclick="check_all_song(event);"><label class="check_all_song_1_label" for="check_all_song_1"></label>
+              <button class="btn btn-danger no_permission" onclick="delete_multiple_permission();">Không cấp phép</button>
             </div>
             <ul>
               <%for(let temp_song of total_song){%>
               <li>
-                <input type="checkbox" class="check_one_song check_one_song_<%=temp_song._id%>" onclick="check_one_song(event);">
-                <%=temp_song._source.song_name%>
+                <p>
+                  <input id="check_one_song_<%=temp_song._id%>" type="checkbox" class="check_one_song check_one_song_<%=temp_song._id%>" onclick="check_one_song(event);">
+                  <label for="check_one_song_<%=temp_song._id%>">
+                    <%=temp_song._source.song_name%>
+                  </label>
+                </p>
               </li>
               <%}%>
             </ul>
@@ -425,6 +430,23 @@
         }else {
           $('.no_permission').hide();
         }
+      }
+      function delete_permission(event) {
+        let temp_id = event.target.id.substr(15);
+        jQuery(event.target).removeClass('btn-success');
+        jQuery(event.target).addClass('btn-danger');
+        jQuery(event.target).text('Không được cấp phép');
+        $('.check_one_song_' + temp_id).prop('checked', true);
+        $('.check_one_song_' + temp_id).prop('disabled', true);
+      }
+      function delete_multiple_permission() {
+        $('.check_one_song').each(function() {
+          if($(this).is(':checked')) {
+            $(this).prop('checked', true);
+            $(this).prop('disabled', true);
+            $('#btn-permission-' + $(this).attr('id').substr(15)).removeClass('btn-succsess').addClass('btn-danger').text('Không được cấp phép');
+          }
+        });
       }
     </script>
     <script src="/js/jquery-3.3.1.min.js"></script>

@@ -55,14 +55,20 @@
 .author_n_singer {
 	position: relative;
 }
-.show-lyric {
+.show-lyric, .btn-permission {
 	position: absolute;
-	bottom: 5px;
-	right: 0;
 	border-radius: 15px;
   padding: 2px 6px;
   padding-top: 4px;
-  }
+}
+.show-lyric {
+  right: 0;bottom: 5px;
+}
+.btn-permission {
+  right: 0;
+  bottom: 40px;
+}
+
 .author_n_singer > div {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -175,7 +181,10 @@
 @media only screen and (max-width: 768px) { 
 	.home_container .home_title {
 		font-size: 50px;
-	}
+  }
+  .artists {
+    margin-top: 40px;
+  }
 }
 
 * {
@@ -927,6 +936,105 @@ section {
   padding: 2px 4px;
   display: none;
 }
+/* Base for label styling */
+.info-songs [type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+.info-songs [type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  position: relative;
+  padding-left: 1.95em;
+  cursor: pointer;
+}
+
+/* checkbox aspect */
+.info-songs [type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+/* checked mark aspect */
+.info-songs [type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: '\2713\0020';
+  position: absolute;
+  top: .15em; left: .22em;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: #09ad7e;
+  transition: all .2s;
+  font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+}
+.check_all_song:not(:checked) + .check_all_song_1_label:before,
+[type="checkbox"]:checked + .check_all_song_1_label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: -5px !important;
+  width: 1.25em; height: 1.25em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+/* checked mark aspect */
+.check_all_song:not(:checked) + .check_all_song_1_label:after,
+[type="checkbox"]:checked + .check_all_song_1_label:after {
+  content: '\2713\0020';
+  position: absolute;
+  top: -2px !important; left: .22em;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: #09ad7e;
+  transition: all .2s;
+  font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+}
+/* checked mark aspect changes */
+.info-songs [type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+.info-songs [type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+.info-songs [type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+.info-songs [type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+.info-songs [type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+/* accessibility */
+.info-songs [type="checkbox"]:checked:focus + label:before,
+[type="checkbox"]:not(:checked):focus + label:before {
+  border: 2px dotted blue;
+}
+
+/* hover style just for information */
+.info-songs label:hover:before {
+  border: 2px solid #4778d9!important;
+}
+
+
+
+
+
+
+
 @media screen and (max-width: 700px){
   .box{
     width: 70%;
