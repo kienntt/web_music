@@ -23,7 +23,6 @@ router.post("/search", urlencodedParser, function (req, res) {
     let array_exclude_cookie = [];
     array_exclude_cookie.push(exclude);
     array_include_cookie.push(include);
-
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */
@@ -48,7 +47,7 @@ router.post("/search", urlencodedParser, function (req, res) {
         });
       }
     }
-    let size = 2;
+    let size = 5;
     query["from"] = 0;
     query["size"] = size;
 

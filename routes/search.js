@@ -172,7 +172,7 @@ router.get("/byresult/:id", function (req, res, next) {
   let show_include = include.filter(item => item.trim() !== "");
   let show_exclude = exclude.filter(item => item.trim() !== "");
   //set from current page
-  var size = 2;
+  var size = 5;
   var current = req.params.id;
   query["from"] = (current - 1) * size;
   query["size"] = size;
@@ -301,7 +301,7 @@ router.post("/byresult", async function (req, res, next) {
   let show_include = include.filter(item => item.trim() !== "");
   let show_exclude = exclude.filter(item => item.trim() !== "");
 
-  var size = 2;
+  var size = 5;
   query["size"] = size;
   var data = [];
   var total = 0;
