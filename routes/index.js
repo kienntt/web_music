@@ -3,16 +3,16 @@ var router = express.Router();
 var elasticsearch = require("elasticsearch");
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-
+var Promise = require("bluebird");
 /* GET home page. */
 
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   res.clearCookie("exclude_keyword");
   res.clearCookie("main_keyword");
   res.render("index", { title: "Express" });
 });
 
-router.post("/search", urlencodedParser, function(req, res) {
+router.post("/search", urlencodedParser, function (req, res) {
   if (!req.body) {
     //noi dung request trong
     return res.redirect("/");
@@ -31,7 +31,6 @@ router.post("/search", urlencodedParser, function(req, res) {
       host: "http://192.168.1.210:9200",
       log: "trace"
     });
-
     var query =
       '{"from" : 0, "size" : 10,"query": { "bool": { "should": { "bool": { "must": [], "must_not": [] } } } }}';
     query = JSON.parse(query);
@@ -55,59 +54,65 @@ router.post("/search", urlencodedParser, function(req, res) {
 
     var data = [];
     var total_song = [];
-    var check_first_query = false;
     var total = 0;
     var numPage = 0;
     let show_include = include.filter(item => item.trim() !== "");
     let show_exclude = exclude.filter(item => item.trim() !== "");
-    client.search(
-      {
-        index: "songtest",
-        body: query
-      },
-      function(error, response, status) {
-        if (error) {
-          console.log("search error: " + error);
-          res.send("Error!");
-          res.send("total");
-        } else {
-          total = response.hits.total;
-          numPage = Math.ceil(total / 2);
-          response.hits.hits.forEach(function(hit) {
-            data.push(hit);
-          });
-          check_first_query = true;
-        }
-      }
-    );
-    delete query["from"];
-    delete query["size"];
 
-    client.search(
-      {
-        index: "songtest",
-        body: query
-      },
-      function(error, responsessss, status) {
-        if (error) {
-          console.log("search error: " + error);
-          res.send("Error!");
-          res.send("total");
-        } else {
-          responsessss.hits.hits.forEach(function(hit) {
-            total_song.push(hit);
-          });
-          if (total != 0) {
-            res.cookie("main_keyword", array_include_cookie, {
-              expires: new Date(Date.now() + 900000),
-              httpOnly: true
+    var promise = new Promise(function (resolve, reject) {
+      client.search(
+        {
+          index: "songtest",
+          body: query
+        },
+        function (error, response, status) {
+          if (error) {
+            console.log("search error: " + error);
+            res.send("Error!");
+            res.send("total");
+          } else {
+            total = response.hits.total;
+            numPage = Math.ceil(total / 2);
+            response.hits.hits.forEach(function (hit) {
+              data.push(hit);
             });
-            res.cookie("exclude_keyword", array_exclude_cookie, {
-              expires: new Date(Date.now() + 900000),
-              httpOnly: true
-            });
+            resolve(data);
           }
-          if (check_first_query) {
+        }
+      );
+
+
+    });
+
+    promise.then(function (data) {
+      delete query["from"];
+      delete query["size"];
+
+      client.search(
+        {
+          index: "songtest",
+          body: query
+        },
+        function (error, responsessss, status) {
+          if (error) {
+            console.log("search error: " + error);
+            res.send("Error!");
+            res.send("total");
+          } else {
+            responsessss.hits.hits.forEach(function (hit) {
+              total_song.push(hit);
+            });
+            if (total != 0) {
+              res.cookie("main_keyword", array_include_cookie, {
+                expires: new Date(Date.now() + 900000),
+                httpOnly: true
+              });
+              res.cookie("exclude_keyword", array_exclude_cookie, {
+                expires: new Date(Date.now() + 900000),
+                httpOnly: true
+              });
+            }
+
             res.render("search/result", {
               data: data,
               show_include: show_include,
@@ -118,9 +123,15 @@ router.post("/search", urlencodedParser, function(req, res) {
               total_song: total_song
             });
           }
+
         }
-      }
-    );
+      );
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+
+
   }
 });
 
