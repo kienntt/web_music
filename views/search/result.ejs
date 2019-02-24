@@ -212,25 +212,28 @@
                             <div>
                               <a>
                                 <span class="author_or_singer">Tác giả:</span>
-                                <%for(let i = 0; i < song._source.author.length;
-                                i++){%> <%if(i == song._source.author.length -
-                                1){%>
-                                <span><%=song._source.author[i].name%></span>
-                                <%}else {%>
-                                <span><%=song._source.author[i].name%>, </span>
-                                <%}%> <%}%>
+                                <span class="author_or_singer_name">
+                                  <%for(let i = 0; i < song._source.author.length;
+                                  i++){%> <%if(i == song._source.author.length -
+                                  1){%>
+                                  <%=song._source.author[i].name%>
+                                  <%}else {%>
+                                  <%=song._source.author[i].name%>, 
+                                  <%}%> <%}%>
+                                </span>
                               </a>
                             </div>
                             <div>
                               <a>
                                 <span class="author_or_singer">Ca sĩ: </span>
-                                <%for(let i = 0; i <
-                                song._source.singers.length; i++){%> <%if(i ==
-                                song._source.singers.length - 1){%>
-                                <span><%=song._source.singers[i].name%></span>
-                                <%}else {%>
-                                <span><%=song._source.singers[i].name%>, </span>
-                                <%}%> <%}%>
+                                <span class="author_or_singer_name">
+                                  <%for(let i = 0; i < song._source.singers.length; i++){%> 
+                                    <%if(i == song._source.singers.length - 1){%>
+                                  <%=song._source.singers[i].name%>
+                                  <%}else {%>
+                                  <%=song._source.singers[i].name%>, 
+                                  <%}%> <%}%>
+                                </span>
                               </a>
                             </div>
                           </div>

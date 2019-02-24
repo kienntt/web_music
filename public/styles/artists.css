@@ -39,6 +39,17 @@
   font: 400;
   background-color: #aca6a6;
 } */
+.author_or_singer_name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+.author_n_singer a {
+  max-width: 20px;
+  overflow: hidden;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -73,11 +84,11 @@
   padding-top: 4px;
 }
 .show-lyric {
-  right: 0;bottom: 5px;
+  right: 0;bottom: 0px;
 }
 .btn-permission {
   right: 0;
-  bottom: 40px;
+  bottom: 62px;
 }
 
 .author_n_singer > div {
