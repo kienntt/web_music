@@ -48,7 +48,7 @@ router.get("/byresult/:id", function(req, res, next) {
   let show_include = include.filter(item => item.trim() !== "");
   let show_exclude = exclude.filter(item => item.trim() !== "");
   //set from current page
-  var size = 2;
+  var size = 5;
   var current = req.params.id;
   query["from"] = (current - 1) * size;
   query["size"] = size;
@@ -76,8 +76,8 @@ router.get("/byresult/:id", function(req, res, next) {
       }
     }
   );
-  delete query["from"];
-  delete query["size"];
+  query["from"] = 0;
+    query["size"] = 10000;
 
   client.search(
     {
@@ -172,7 +172,7 @@ router.post("/byresult", function(req, res, next) {
   let show_include = include.filter(item => item.trim() !== "");
   let show_exclude = exclude.filter(item => item.trim() !== "");
 
-  var size = 2;
+  var size = 5;
   query["size"] = size;
   var data = [];
   var total = 0;
@@ -190,7 +190,7 @@ router.post("/byresult", function(req, res, next) {
         res.send("Error!");
       } else {
         total = response.hits.total;
-        numPage = Math.ceil(total / 2);
+        numPage = Math.ceil(total / size);
         response.hits.hits.forEach(function(hit) {
           data.push(hit);
         });
@@ -198,8 +198,8 @@ router.post("/byresult", function(req, res, next) {
       }
     }
   );
-  delete query["from"];
-  delete query["size"];
+  query["from"] = 0;
+    query["size"] = 10000;
 
   client.search(
     {

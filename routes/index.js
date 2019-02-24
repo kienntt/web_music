@@ -23,7 +23,6 @@ router.post("/search", urlencodedParser, function(req, res) {
     let array_exclude_cookie = [];
     array_exclude_cookie.push(exclude);
     array_include_cookie.push(include);
-
     include = [...new Set(include)];
     exclude = [...new Set(exclude)];
     /* ket noi elasticsearch */
@@ -49,7 +48,7 @@ router.post("/search", urlencodedParser, function(req, res) {
         });
       }
     }
-    let size = 2;
+    let size = 5;
     query["from"] = 0;
     query["size"] = size;
 
@@ -72,7 +71,7 @@ router.post("/search", urlencodedParser, function(req, res) {
           res.send("total");
         } else {
           total = response.hits.total;
-          numPage = Math.ceil(total / 2);
+          numPage = Math.ceil(total / size);
           response.hits.hits.forEach(function(hit) {
             data.push(hit);
           });
@@ -80,8 +79,8 @@ router.post("/search", urlencodedParser, function(req, res) {
         }
       }
     );
-    delete query["from"];
-    delete query["size"];
+    query["from"] = 0;
+    query["size"] = 10000;
 
     client.search(
       {
@@ -106,6 +105,7 @@ router.post("/search", urlencodedParser, function(req, res) {
               expires: new Date(Date.now() + 900000),
               httpOnly: true
             });
+            // res.cookie("wep_depth", 2, {expires: new Date(Date.now() + 900000), httpOnly: true});
           }
           if (check_first_query) {
             res.render("search/result", {

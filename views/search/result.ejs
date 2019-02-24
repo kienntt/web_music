@@ -69,12 +69,12 @@
                   <ul class="d-flex flex-row align-items-center justify-content-start large">
                     <li><a href="/">Trang chủ</a></li>
                     <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <li><a href="#" onclick="goBack();">Trở về trang trước</a></li>
+                    <!-- <li><a href="#" onclick="goBack();">Trở về trang trước</a></li> -->
                   </ul>
                   <ul class="d-flex flex-row align-items-center justify-content-start tiny">
                     <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
                     <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <li><a href="#" onclick="goBack();"><i class="fa fa-arrow-left"></i> Trở lại</a></li>
+                    <!-- <li><a href="#" onclick="goBack();"><i class="fa fa-arrow-left"></i> Trở lại</a></li> -->
                   </ul>
                 </nav>
               </div>
@@ -238,7 +238,7 @@
                             class="show-lyric btn btn-info"
                             onclick="showLyric(`<%=song._id%>`);"
                           >
-                            Xem lời bài hát
+                            Chi tiết bài hát
                           </button>
                         </div>
                       </div>
@@ -338,49 +338,6 @@
             <% } %>
         </ul>
     <% } %>
-    <footer class="footer">
-      <div class="background_image" style="background-image:url(images/footer.jpg)"></div>
-      <div class="footer_content">
-        <div class="container">
-          <div class="row">
-            <div class="col text-center">
-  
-              <!-- Logo -->
-              <div class="logo">
-                <a href="#" class="d-flex flex-row align-items-end justify-content-start">
-                  <span class="logo_bars d-flex flex-row align-items-end justify-content-between"><span></span><span></span><span></span><span></span><span></span></span>
-                  <span class="logo_text">music</span>
-                </a>
-              </div>
-  
-              <!-- Footer Social -->
-              <div class="footer_social">
-                <ul class="d-flex flex-row align-items-center justify-content-center">
-                  <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-                </ul>
-              </div>
-  
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer_bar">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="copyright text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://smcc.vn" target="_blank">InfoRe</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
-            </div>
-          </div>
-        </div>
-      </div>
-        
-    </footer>
     <script>
       document.addEventListener(
         "DOMContentLoaded",
