@@ -1,250 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Artists</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Music template project" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/styles/bootstrap-4.1.2/bootstrap.min.css"
-    />
-    <link
-      href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/plugins/OwlCarousel2-2.3.4/owl.carousel.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/plugins/OwlCarousel2-2.3.4/owl.theme.default.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/plugins/OwlCarousel2-2.3.4/animate.css"
-    />
-    <link rel="stylesheet" type="text/css" href="/styles/artists.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/styles/artists_responsive.css"
-    />
-  </head>
-  <body>
-    <div class="super_container">
-      <!-- Header -->
 
-      <header class="header">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div
-                class="header_content d-flex flex-row align-items-center justify-content-center"
-              >
-                <!-- Logo -->
-                <div class="logo">
-                  <a
-                    href="/"
-                    class="d-flex flex-row align-items-end justify-content-start"
-                  >
-                    <span
-                      class="logo_bars d-flex flex-row align-items-end justify-content-between"
-                      ><span></span><span></span><span></span><span></span
-                      ><span></span
-                    ></span>
-                    <span class="logo_text">music</span>
-                  </a>
-                </div>
+<head>
+  <title>Artists</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Music template project" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="/styles/bootstrap-4.1.2/bootstrap.min.css" />
+  <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.3.4/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.3.4/owl.theme.default.css" />
+  <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.3.4/animate.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/artists.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/artists_responsive.css" />
+  <style>
+    .modal-lyric span,.artist_text span{
+      display: inline-block;
+      padding: 0 5px 0 5px;
+      border-radius: 5px;  
+      color: white;
+    }
+  </style>
+</head>
 
-                <!-- Main Navigation -->
-                <nav class="main_nav">
-                  <ul class="d-flex flex-row align-items-center justify-content-start large">
-                    <li><a href="/">Trang chủ</a></li>
-                    <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <li><a href="/search/byresult/back">Trở về trang trước</a></li>
-                  </ul>
-                  <ul class="d-flex flex-row align-items-center justify-content-start tiny">
-                    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
-                    <!-- <li><a href="#">Lịch sử</a></li> -->
-                    <!-- <li><a href="#" onclick="goBack();"><i class="fa fa-arrow-left"></i> Trở lại</a></li> -->
-                  </ul>
-                </nav>
+<body>
+  <div class="super_container">
+    <!-- Header -->
+
+    <header class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="header_content d-flex flex-row align-items-center justify-content-center">
+              <!-- Logo -->
+              <div class="logo">
+                <a href="/" class="d-flex flex-row align-items-end justify-content-start">
+                  <span
+                    class="logo_bars d-flex flex-row align-items-end justify-content-between"><span></span><span></span><span></span><span></span><span></span></span>
+                  <span class="logo_text">music</span>
+                </a>
               </div>
+
+              <!-- Main Navigation -->
+              <nav class="main_nav">
+                <ul class="d-flex flex-row align-items-center justify-content-start large">
+                  <li><a href="/">Trang chủ</a></li>
+                  <!-- <li><a href="#">Lịch sử</a></li> -->
+                  <li><a href="/search/byresult/back">Trở về trang trước</a></li>
+                </ul>
+                <ul class="d-flex flex-row align-items-center justify-content-start tiny">
+                  <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+                  <!-- <li><a href="#">Lịch sử</a></li> -->
+                  <!-- <li><a href="#" onclick="goBack();"><i class="fa fa-arrow-left"></i> Trở lại</a></li> -->
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <!-- Menu -->
+    <!-- Menu -->
 
-      <div class="menu">
-        <div class="menu_container">
-          <div class="menu_background"></div>
-          <div class="menu_close">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </div>
-          <div
-            class="menu_content d-flex flex-column align-items-center justify-content-start"
-          >
-            <nav class="menu_nav">
-              <ul
-                class="d-flex flex-column align-items-center justify-content-start"
-              >
-                <li><a href="/">Trang chủ</a></li>
-                <!-- <li><a href="#">Lịch sử</a></li> -->
-                <li><a href="#">Trở về trang trước</a></li>
-              </ul>
-            </nav>
-          </div>
+    <div class="menu">
+      <div class="menu_container">
+        <div class="menu_background"></div>
+        <div class="menu_close">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        <div class="menu_content d-flex flex-column align-items-center justify-content-start">
+          <nav class="menu_nav">
+            <ul class="d-flex flex-column align-items-center justify-content-start">
+              <li><a href="/">Trang chủ</a></li>
+              <!-- <li><a href="#">Lịch sử</a></li> -->
+              <li><a href="#">Trở về trang trước</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
+    </div>
 
-      <!-- Home -->
+    <!-- Home -->
 
-      <div class="home">
-        <div
-          class="parallax_background parallax-window"
-          data-parallax="scroll"
-          data-image-src="/images/artists.jpg"
-          data-speed="0.8"
-        ></div>
-        <div class="home_container">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <div class="home_content text-center">
-                  <div class="home_title">Tìm trong kết quả này</div>
-                  <div class="current-keyword">
-                    Có <%=total%> kết quả cho tìm kiếm với các từ khóa sau
-                    <div class="show-keyword-box"><a onclick="popupkeyword();">chi tiết<i class="fa fa-info-circle"></i></a></div>
-                  </div>
+    <div class="home">
+      <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/images/artists.jpg"
+        data-speed="0.8"></div>
+      <div class="home_container">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="home_content text-center">
+                <div class="home_title">Tìm trong kết quả này</div>
+                <div class="current-keyword">
+                  Có <%=total%> kết quả cho tìm kiếm với các từ khóa sau
+                  <div class="show-keyword-box"><a onclick="popupkeyword();">chi tiết<i
+                        class="fa fa-info-circle"></i></a></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Search -->
+    <!-- Search -->
 
-      <div class="search">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="search_form_container">
-                <form
-                  action="/search/byresult"
-                  method="POST"
-                  class="search_form"
-                  id="search_form"
-                >
-                  <div
-                    class="d-flex flex-md-row flex-column align-items-center justify-content-between"
-                  >
-                    <input
-                      type="text"
-                      class="search_input"
-                      name="main_keyword"
-                      placeholder="Từ khóa cần tìm"
-                    />
-                    <input
-                      type="text"
-                      name="exclude_keyword"
-                      class="search_input"
-                      placeholder="Từ khóa loại bỏ"
-                    />
-                    <button type="submit" class="button search_button">
-                      <span>Tìm kiếm</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
+    <div class="search">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="search_form_container">
+              <form action="/search/byresult" method="POST" class="search_form" id="search_form">
+                <div class="d-flex flex-md-row flex-column align-items-center justify-content-between">
+                  <input type="text" class="search_input" name="main_keyword" placeholder="Từ khóa cần tìm" />
+                  <input type="text" name="exclude_keyword" class="search_input" placeholder="Từ khóa loại bỏ" />
+                  <button type="submit" class="button search_button">
+                    <span>Tìm kiếm</span>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Artists -->
-      <%for(let song of data){%>
-      <div class="artists" id="<%=song._id%>">
-        <div class="artists_container">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <div class="artist">
-                  <div class="row">
-                    <!-- Artist Image -->
-                    <div class="col-lg-4 col-md-4">
-                      <div class="artist_image">
-                        <img src="/images/songicon.png" alt="" />
-                      </div>
+    <!-- Artists -->
+    <%for(let song of data){%>
+    <div class="artists" id="<%=song._id%>">
+      <div class="artists_container">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="artist">
+                <div class="row">
+                  <!-- Artist Image -->
+                  <div class="col-lg-4 col-md-4">
+                    <div class="artist_image">
+                      <img src="/images/songicon.png" alt="" />
                     </div>
+                  </div>
 
-                    <!-- Artist Content -->
-                    <div class="col-lg-8 col-md-8 artist_col">
-                      <div class="artist_content">
-                        <div class="artist_info">
-                          <div class="artist_name">
-                            <h1><a><%=song._source.song_name%></a></h1>
-                          </div>
-                          <div class="artist_text">
-                            <p>
-                              <%=song._source.lyrics%> <% let temp_author = [];
-                              for(let i = 0; i < song._source.author.length;
+                  <!-- Artist Content -->
+                  <div class="col-lg-8 col-md-8 artist_col">
+                    <div class="artist_content">
+                      <div class="artist_info">
+                        <div class="artist_name">
+                          <h1><a><%=song._source.song_name%></a></h1>
+                        </div>
+                        <div class="artist_text">
+                          <p>
+                            <% 
+                               var classList = ["bg-primary", "bg-success", "bg-info", "bg-warning", "bg-danger"];
+                              for(let i = 0; i < show_include.length;
                               i++) {
-                              temp_author.push(song._source.author[i].name); }
-                              let temp_singer = []; for(let i = 0; i <
-                              song._source.singers.length; i++) {
-                              temp_singer.push(song._source.singers[i].name); }
+                                var RandomClassName = classList[Math.floor((Math.random() * 4))];
+                                var lyriccc = song._source.lyrics.replace(show_include[i],'<span class='+ RandomClassName +'>'+show_include[i]+"</span>") }
+                              
                               %>
-                            </p>
-                          </div>
-                          <!-- author and singer -->
-                          <div class="author_n_singer">
-                            <div>
-                              <a>
-                                <span class="author_or_singer">Tác giả:</span>
-                                <span class="author_or_singer_name">
-                                  <%for(let i = 0; i < song._source.author.length;
+                            <%-lyriccc%>
+                          </p>
+                        </div>
+                        <!-- author and singer -->
+                        <div class="author_n_singer">
+                          <div>
+                            <a>
+                              <span class="author_or_singer">Tác giả:</span>
+                              <span class="author_or_singer_name">
+                                <%for(let i = 0; i < song._source.author.length;
                                   i++){%> <%if(i == song._source.author.length -
                                   1){%>
-                                  <%=song._source.author[i].name%>
-                                  <%}else {%>
-                                  <%=song._source.author[i].name%>, 
-                                  <%}%> <%}%>
-                                </span>
-                              </a>
-                            </div>
-                            <div>
-                              <a>
-                                <span class="author_or_singer">Ca sĩ: </span>
-                                <span class="author_or_singer_name">
-                                  <%for(let i = 0; i < song._source.singers.length; i++){%> 
-                                    <%if(i == song._source.singers.length - 1){%>
-                                  <%=song._source.singers[i].name%>
-                                  <%}else {%>
-                                  <%=song._source.singers[i].name%>, 
-                                  <%}%> <%}%>
-                                </span>
-                              </a>
-                            </div>
+                                <%=song._source.author[i].name%>
+                                <%}else {%>
+                                <%=song._source.author[i].name%>,
+                                <%}%> <%}%>
+                              </span>
+                            </a>
                           </div>
-                          <button id="btn-permission-<%=song._id%>" class="btn btn-success btn-permission" onclick="delete_permission(event)">Xóa cấp phép</button>
-                          <button
-                            class="show-lyric btn btn-info"
-                            onclick="showLyric(`<%=song._id%>`);"
-                          >
-                            Chi tiết bài hát
-                          </button>
+                          <div>
+                            <a>
+                              <span class="author_or_singer">Ca sĩ: </span>
+                              <span class="author_or_singer_name">
+                                <%for(let i = 0; i < song._source.singers.length; i++){%>
+                                <%if(i == song._source.singers.length - 1){%>
+                                <%=song._source.singers[i].name%>
+                                <%}else {%>
+                                <%=song._source.singers[i].name%>,
+                                <%}%> <%}%>
+                              </span>
+                            </a>
+                          </div>
                         </div>
+                        <button id="btn-permission-<%=song._id%>" class="btn btn-success btn-permission"
+                          onclick="delete_permission(event)">Xóa cấp phép</button>
+                        <button class="show-lyric btn btn-info" onclick="showLyric(`<%=song._id%>`);">
+                          Chi tiết bài hát
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -254,7 +206,8 @@
           </div>
         </div>
       </div>
-      <%}%>
+    </div>
+    <%}%>
       <!-- modal hien full lyrics -->
       <div class="modal" id="lyricModal">
         <span class="modal-close" onclick="closeLyric();">&times;</span>
@@ -284,18 +237,18 @@
           <div class="content row">
             <ul class="col-xs-6" style="color:darkgreen">
               <%for(let temp_include of show_include){%>
-                <li>
-                  <%=temp_include%>
-                </li>
-              <%}%>
+    <li>
+      <%=temp_include%>
+    </li>
+    <%}%>
               <!-- disc -->
               </ul>
             <ul class="col-xs-6" style="color:darkred">
               <%for(let temp_exclude of show_exclude){%>
-                <li>
-                    <%=temp_exclude%>
-                  </li>
-              <%}%>
+    <li>
+      <%=temp_exclude%>
+    </li>
+    <%}%>
             </ul>
           </div>
           <div class="info-songs">
@@ -305,15 +258,16 @@
             </div>
             <ul>
               <%for(let temp_song of total_song){%>
-              <li>
-                <p>
-                  <input id="check_one_song_<%=temp_song._id%>" type="checkbox" class="check_one_song check_one_song_<%=temp_song._id%>" onclick="check_one_song(event);">
-                  <label for="check_one_song_<%=temp_song._id%>">
-                    <%=temp_song._source.song_name%>
-                  </label>
-                </p>
-              </li>
-              <%}%>
+    <li>
+      <p>
+        <input id="check_one_song_<%=temp_song._id%>" type="checkbox"
+          class="check_one_song check_one_song_<%=temp_song._id%>" onclick="check_one_song(event);">
+        <label for="check_one_song_<%=temp_song._id%>">
+          <%=temp_song._source.song_name%>
+        </label>
+      </p>
+    </li>
+    <%}%>
             </ul>
           </div>
         </div>
@@ -321,40 +275,40 @@
     </div>
     
       <% if (pages > 0) { %>
-        <ul class="pagination text-center" style="align-items: center;justify-content: center;margin: 40px;">
-            <% if (current == 1) { %>
-                <li class="disabled page-item"><a class="page-link">First</a></li>
-            <% } else { %>
-                <li class="page-item"><a class="page-link" href="/search/byresult/1">First</a></li>
-            <% } %>
-            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
-            <% if (i !== 1) { %>
-                <li class="disabled page-item"><a>...</a></li>
-            <% } %>
-            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
-                <% if (i == current) { %>
-                    <li class="active page-item"><a class="page-link"><%= i %></a></li>
-                <% } else { %>
-                    <li class="page-item"><a class="page-link" href="/search/byresult/<%= i %>"><%= i %></a></li>
-                <% } %>
-                <% if (i == Number(current) + 4 && i < pages) { %>
-                    <li class="disabled page-item"><a>...</a></li>
-                <% } %>
-            <% } %>
-            <% if (current == pages) { %>
-                <li class="disabled page-item"><a class="page-link">Last</a></li>
-            <% } else { %>
-                <li class="page-item"><a class="page-link" href="/search/byresult/<%= pages %>">Last</a></li>
-            <% } %>
-        </ul>
+    <ul class="pagination text-center" style="align-items: center;justify-content: center;margin: 40px;">
+      <% if (current == 1) { %>
+      <li class="disabled page-item"><a class="page-link">First</a></li>
+      <% } else { %>
+      <li class="page-item"><a class="page-link" href="/search/byresult/1">First</a></li>
+      <% } %>
+      <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if (i !== 1) { %>
+      <li class="disabled page-item"><a>...</a></li>
+      <% } %>
+      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+      <% if (i == current) { %>
+      <li class="active page-item"><a class="page-link"><%= i %></a></li>
+      <% } else { %>
+      <li class="page-item"><a class="page-link" href="/search/byresult/<%= i %>"><%= i %></a></li>
+      <% } %>
+      <% if (i == Number(current) + 4 && i < pages) { %>
+      <li class="disabled page-item"><a>...</a></li>
+      <% } %>
+      <% } %>
+      <% if (current == pages) { %>
+      <li class="disabled page-item"><a class="page-link">Last</a></li>
+      <% } else { %>
+      <li class="page-item"><a class="page-link" href="/search/byresult/<%= pages %>">Last</a></li>
+      <% } %>
+    </ul>
     <% } %>
     <script>
       document.addEventListener(
         "DOMContentLoaded",
-        function() {
-          if($(document).width() <= 414) {
+        function () {
+          if ($(document).width() <= 414) {
             $(document).scrollTop(150);
-          }else {
+          } else {
             $(document).scrollTop(100);
           }
           if ($(".current-include span").text().length >= 40) {
@@ -389,7 +343,7 @@
             .find(".author_n_singer")
             .html()
         );
-        let temp_lyric  =$("#" + songId).find(".artist_text p").text();
+        let temp_lyric = $("#" + songId).find(".artist_text p").html();
         $("#lyricModal .modal-lyric").html(temp_lyric);
 
       }
@@ -398,17 +352,17 @@
         modal.style.display = "none";
       }
       function popupkeyword() {
-        $('#popupkeyword').css({'visibility': 'visible',  'opacity': 1});
+        $('#popupkeyword').css({ 'visibility': 'visible', 'opacity': 1 });
       }
       function closePopupKeyword() {
-        $('#popupkeyword').css({'visibility': 'hidden',  'opacity': 0});
+        $('#popupkeyword').css({ 'visibility': 'hidden', 'opacity': 0 });
       }
       function check_all_song() {
-        if(jQuery(event.target).is(":checked")){
+        if (jQuery(event.target).is(":checked")) {
           $('.check_all_song').prop('checked', true);
           $('.check_one_song').prop('checked', true);
           $('.no_permission').show();
-        }else {
+        } else {
           $('.check_all_song').prop('checked', false);
           $('.check_one_song').prop('checked', false);
           $('.no_permission').hide();
@@ -416,21 +370,21 @@
       }
       function check_one_song(event) {
         var classList = event.target.classList;
-        if(jQuery(event.target).is(":checked")){
+        if (jQuery(event.target).is(":checked")) {
           $('.' + classList[1]).prop('checked', true);
-        }else {
+        } else {
           $('.' + classList[1]).prop('checked', false);
         }
         let count = false;
-        $('.check_one_song').each(function() {
-          if($(this).is(':checked')) {
+        $('.check_one_song').each(function () {
+          if ($(this).is(':checked')) {
             count = true;
             return;
           }
         });
-        if(count) {
+        if (count) {
           $('.no_permission').show();
-        }else {
+        } else {
           $('.no_permission').hide();
         }
       }
@@ -443,8 +397,8 @@
         $('.check_one_song_' + temp_id).prop('disabled', true);
       }
       function delete_multiple_permission() {
-        $('.check_one_song').each(function() {
-          if($(this).is(':checked')) {
+        $('.check_one_song').each(function () {
+          if ($(this).is(':checked')) {
             $(this).prop('checked', true);
             $(this).prop('disabled', true);
             $('#btn-permission-' + $(this).attr('id').substr(15)).removeClass('btn-succsess').addClass('btn-danger').text('Không được cấp phép');
@@ -468,5 +422,6 @@
     <script src="/plugins/parallax-js-master/parallax.min.js"></script>
     <script src="/plugins/scrollTo/jquery.scrollTo.min.js"></script>
     <script src="/js/artists.js"></script>
-  </body>
+</body>
+
 </html>
