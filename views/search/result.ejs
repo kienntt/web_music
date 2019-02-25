@@ -152,11 +152,12 @@
                         <div class="artist_text">
                           <p>
                             <% 
+                              var lyriccc = song._source.lyrics;
                                var classList = ["bg-primary", "bg-success", "bg-info", "bg-warning", "bg-danger"];
                               for(let i = 0; i < show_include.length;
                               i++) {
                                 var RandomClassName = classList[Math.floor((Math.random() * 4))];
-                                var lyriccc = song._source.lyrics.replace(show_include[i],'<span class='+ RandomClassName +'>'+show_include[i]+"</span>") }
+                                lyriccc = lyriccc.replace(show_include[i],'<span class='+ RandomClassName +'>'+show_include[i]+"</span>") }
                               
                               %>
                             <%-lyriccc%>
