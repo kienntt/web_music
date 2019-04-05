@@ -73,7 +73,7 @@ byresult.get("/back", function (req, res, next) {
                     res.send("Error!");
                 } else {
                     total = response.hits.total;
-                    numPage = Math.ceil(total / 2);
+                    numPage = Math.ceil(total / size);
                     response.hits.hits.forEach(function (hit) {
                         data.push(hit);
                     });

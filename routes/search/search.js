@@ -55,7 +55,7 @@ router.post("/", urlencodedParser, function (req, res) {
     var promise = new Promise(function (resolve, reject) {
       elastic.searchSong(query).then(function (result) {
         total = result.hits.total;
-        numPage = Math.ceil(total / 2);
+        numPage = Math.ceil(total / size);
         result.hits.hits.forEach(function (hit) {
           data.push(hit);
           resolve(data);
